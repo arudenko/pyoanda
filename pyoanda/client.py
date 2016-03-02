@@ -121,6 +121,26 @@ class Client(object):
         else:
             return resp
 
+    def get_events(self):
+        """
+            See more: http://developer.oanda.com/rest-live/streaming/#eventsStreaming
+            
+        """
+        url = "{0}/{1}/events".format(
+            self.domain_stream,
+            self.API_VERSION
+        )
+        params = {}
+
+        call = {"uri": url, "params": params, "method": "get"}
+
+        try:
+            return self._Client__call_stream(**call)
+        except RequestException:
+            return False
+        except AssertionError:
+            return False
+
     def get_instruments(self):
         """
             See more:
